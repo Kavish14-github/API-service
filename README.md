@@ -134,7 +134,41 @@ Response Format
 ```json
 {"result":["usr","app","bin",...],"returncode":0,"stderr":"","stdout":""}
 ```
+5. Invalid Script: Missing main() function
+```bash   
+   curl -X POST https://kavish-cloudrun-project-94871636326.europe-west1.run.app/execute \
+  -H "Content-Type: application/json" \
+  -d "{\"script\": \"def not_main():\\n  return {\\\"msg\\\": \\\"no main function\\\"}\"}"
 
-
-
+```
+```json
+{ "error": "No main() function found"}
+```   
+6. Invalid Return Type: main() does not return a dictionary
+ ```bash   
+  curl -X POST https://kavish-cloudrun-project-94871636326.europe-west1.run.app/execute \
+  -H "Content-Type: application/json" \
+  -d "{\"script\": \"def main():\\n  return 42\"}"
+```
+```json
+{"error": "main() must return a JSON-compatible dictionary"}
+```   
+7. Syntax Error in Script
+ ```bash   
+  curl -X POST https://kavish-cloudrun-project-94871636326.europe-west1.run.app/execute \
+  -H "Content-Type: application/json" \
+  -d "{\"script\": \"def main(:\\n  return {\\\"msg\\\": \\\"syntax error\\\"}\"}"
+```
+```json
+{ "error": "<traceback showing syntax error>"}
+```  
+8. Empty Script
+ ```bash   
+  curl -X POST https://kavish-cloudrun-project-94871636326.europe-west1.run.app/execute \
+  -H "Content-Type: application/json" \
+  -d "{\"script\": \"\"}"
+```
+```json
+{ "error": "No main() function found"}
+```  
    
