@@ -99,7 +99,7 @@ Response Format
 ```bash   
    curl -X POST https://kavish-cloudrun-project-94871636326.europe-west1.run.app/execute \
   -H "Content-Type: application/json" \
-  -d "{\"script\": \"def main():\\n  return {\\\"status\\\": \\\"success\\\", \\\"message\\\": \\\"Hello from main!\\\"}\"}"
+  -d '{"script": "def main():\n  return {\"status\": \"success\", \"message\": \"Hello from main!\"}"}'
 ```
 ```json
 {"result":{"status":"success","message":"Hello from main!"},"returncode":0,"stderr":"","stdout":""}
